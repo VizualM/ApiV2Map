@@ -2,7 +2,11 @@
 <resources>
 
     <string name="app_name">Test api v2</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Eukaryote</string>
     <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyBArbuWz6nKsvDX8pR7CIW-wIOrWmOsHrM</string>
 
+    <string name="gps">GPS</string>
+    <string name="gps_enable">Activer</string>
+    <string name="gps_disabled">Votre GPS n\'est pas activé</string>
+    <string name="gps_do_nothing">Ne rien faire</string>
 </resources>
