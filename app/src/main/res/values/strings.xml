@@ -7,6 +7,6 @@
 
     <string name="gps">GPS</string>
     <string name="gps_enable">Activer</string>
-    <string name="gps_disabled">Votre GPS n\'est pas activé</string>
+    <string name="gps_disabled">Votre système de géolocalisation n\'est pas activé</string>
     <string name="gps_do_nothing">Ne rien faire</string>
 </resources>

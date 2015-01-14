@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
                 .zoom(100)
-                .bearing(90)
+                .bearing(0)
                 .build();
 
         // Animate the change in camera view over 2 seconds
