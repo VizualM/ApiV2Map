@@ -63,6 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //On arrive ici lorsque le GPS est déjà activé
             mLocationManager.launchGeolocation();
         }
+
     }
 
     @Override
@@ -78,20 +79,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.setIndoorEnabled(true);
+        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
 
         // Flat markers will rotate when the map is rotated,
         // and change perspective when the map is tilted.
         mMap.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pointe))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(mapCenter)
-                .flat(true)
-                .rotation(245));
+                .flat(false));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
-                .zoom(13)
+                .zoom(100)
                 .bearing(90)
                 .build();
 
