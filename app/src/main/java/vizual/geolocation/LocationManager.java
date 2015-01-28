@@ -84,4 +84,11 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
     public void setOnLocationListener(OnLocationListener listener){
         mOnLocationListener = listener;
     }
+    public void onChanged(){
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+
+        if (mLastLocation != null && mOnLocationListener != null)
+            mOnLocationListener.onLocationFound(mLastLocation);
+    }
 }

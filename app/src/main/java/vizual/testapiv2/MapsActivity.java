@@ -8,10 +8,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import vizual.geolocation.GPSManager;
 import vizual.geolocation.LocationManager;
@@ -80,16 +78,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setIndoorEnabled(true);
+        mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
 
-        // Flat markers will rotate when the map is rotated,
-        // and change perspective when the map is tilted.
-        mMap.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                .position(mapCenter)
-                .flat(false));
+        //mMap.addMarker(new MarkerOptions()
+          //      .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+          //      .position(mapCenter)
+          //      .flat(false));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
@@ -99,7 +99,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                2000, null);
-
+                500, null);
     }
 }

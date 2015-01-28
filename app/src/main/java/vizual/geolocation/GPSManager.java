@@ -82,4 +82,5 @@ public class GPSManager {
 
         mGPSIsActivated = isGPSActivatedNow;
     }
+
 }
