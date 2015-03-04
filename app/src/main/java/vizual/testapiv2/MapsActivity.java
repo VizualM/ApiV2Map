@@ -110,6 +110,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .add(new LatLng(44.855031, -0.567574))  // Same longitude, and 16km to the south
                 .add(new LatLng(44.855157, -0.567730)); // Closes the polyline.
          Polyline polyline = mMap.addPolyline(rectOptions);
-        //Affichage du premier carré !
+        //Affichage du premier carré !!
     }
 }
