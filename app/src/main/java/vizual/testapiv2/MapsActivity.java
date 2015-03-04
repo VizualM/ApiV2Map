@@ -1,5 +1,6 @@
 package vizual.testapiv2;
 
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -95,21 +96,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
-                .zoom(16)
+                .zoom(19)
                 .bearing(0)
                 .build();
 
-        // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                500, null);
+                500, null); // Animation de la caméra
 
         PolylineOptions rectOptions = new PolylineOptions()
-                .add(new LatLng(44.855157, -0.567730))
-                .add(new LatLng(44.855286, -0.567542))  // North of the previous point, but at the same longitude
-                .add(new LatLng(44.855157, -0.567392))  // Same latitude, and 30km to the west
-                .add(new LatLng(44.855031, -0.567574))  // Same longitude, and 16km to the south
-                .add(new LatLng(44.855157, -0.567730)); // Closes the polyline.
+                .add(new LatLng(44.855157, -0.567730))  //Start Point
+                .add(new LatLng(44.855286, -0.567544))  // North of the previous point, but at the same longitude
+                .add(new LatLng(44.855157, -0.567392))  // Same latitude
+                .add(new LatLng(44.855031, -0.567574))  // Same longitude
+                .add(new LatLng(44.855157, -0.567730))  // Closes the polyline.
+                .color(Color.GREEN)
+                .width(5);
          Polyline polyline = mMap.addPolyline(rectOptions);
         //Affichage du premier carré !!
+
+        // --- Mise en place d'un algo de 100 carrés ---
+        double a = 44.855333;
+        double b = -0.567552;
+        double c = 44.855332;
+        double d = -0.567298;
+        double e = 44.855514;
+        double f = -0.567297;
+        double g = 44.855513;
+        double h = -0.567553;
+        double j = 44.855333;
+        double k = -0.567552;
+
+        for(int i =0 ; i<100 ; i++) {
+            PolylineOptions carreOptions = new PolylineOptions()
+                    .add(new LatLng(a, b))
+                    .add(new LatLng(c, d))
+                    .add(new LatLng(e, f))
+                    .add(new LatLng(g, h))
+                    .add(new LatLng(j, k))
+                    .width(6)
+                    .color(Color.rgb(255,83,13));
+
+            Polyline polylinebis = mMap.addPolyline(carreOptions);
+            a = a + 0.000150;
+            b = b + (-0.000150);
+            c = c + 0.000150;
+            d = d + (-0.000150);
+            e = e + 0.000150;
+            f = f + (-0.000150);
+            g = g + 0.000150;
+            h = h + (-0.000150);
+            j = j + 0.000150;
+            k = k + (-0.000150);
+            //Ajout de 20 metre supplémentaire
+        }
     }
 }
