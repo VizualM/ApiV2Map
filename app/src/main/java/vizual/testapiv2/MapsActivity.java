@@ -9,8 +9,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -19,13 +24,13 @@ import vizual.geolocation.LocationManager;
 import vizual.geolocation.OnGPSEnabledListener;
 import vizual.geolocation.OnLocationListener;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     //private LocationManager locationManager;
 
     private Location mUserLocation;
-
+    private Marker myMarker;
     private LocationManager mLocationManager;
     private GPSManager mGPSManager;
 
@@ -96,25 +101,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
-                .zoom(19)
+                .zoom(100)
                 .bearing(0)
                 .build();
 
+        // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                 500, null); // Animation de la caméra
-
         PolylineOptions rectOptions = new PolylineOptions()
-                .add(new LatLng(44.855157, -0.567730))  //Start Point
-                .add(new LatLng(44.855286, -0.567544))  // North of the previous point, but at the same longitude
-                .add(new LatLng(44.855157, -0.567392))  // Same latitude
-                .add(new LatLng(44.855031, -0.567574))  // Same longitude
-                .add(new LatLng(44.855157, -0.567730))  // Closes the polyline.
+                .add(new LatLng(44.855157, -0.567730)) //Start Point
+                .add(new LatLng(44.855286, -0.567544)) // North of the previous point, but at the same longitude
+                .add(new LatLng(44.855157, -0.567392)) // Same latitude
+                .add(new LatLng(44.855031, -0.567574)) // Same longitude
+                .add(new LatLng(44.855157, -0.567730)) // Closes the polyline.
                 .color(Color.GREEN)
                 .width(5);
-         Polyline polyline = mMap.addPolyline(rectOptions);
-        //Affichage du premier carré !!
-
-        // --- Mise en place d'un algo de 100 carrés ---
+        Polyline polyline = mMap.addPolyline(rectOptions);
+//Affichage du premier carré !!
+// --- Mise en place d'un algo de 100 carrés ---
         double a = 44.855333;
         double b = -0.567552;
         double c = 44.855332;
@@ -125,8 +129,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double h = -0.567553;
         double j = 44.855333;
         double k = -0.567552;
-
-        for(int i =0 ; i<100 ; i++) {
+        for (int i = 0; i < 100; i++) {
             PolylineOptions carreOptions = new PolylineOptions()
                     .add(new LatLng(a, b))
                     .add(new LatLng(c, d))
@@ -134,8 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .add(new LatLng(g, h))
                     .add(new LatLng(j, k))
                     .width(6)
-                    .color(Color.rgb(255,83,13));
-
+                    .color(Color.rgb(255, 83, 13));
             Polyline polylinebis = mMap.addPolyline(carreOptions);
             a = a + 0.000150;
             b = b + (-0.000150);
@@ -147,7 +149,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             h = h + (-0.000150);
             j = j + 0.000150;
             k = k + (-0.000150);
-            //Ajout de 20 metre supplémentaire
+//Ajout de 20 metre supplémentaire
+
+
+            mMap.setOnMarkerClickListener(this);
+
+            myMarker = mMap.addMarker(new MarkerOptions()
+                    .position(mapCenter)
+                    .title("My Spot")
+                    .snippet("This is my spot!")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         }
     }
+        @Override
+        public boolean onMarkerClick(final Marker marker) {
+
+            if (marker.equals(myMarker)) {
+                //handle click here
+                myMarker.getTitle().equals("poto");
+            }
+            return true;
+
+        }
+
+        //GoogleMap.OnMapClickListener(44.855157, -0.567730);
+        //Création d'un marker clickable
+ /*       mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng mapCenter) {
+                Log.d("Map", "Map clicked");
+                marker.remove();
+                drawMarker(point);
+            }
+        });
+*/
+
+
+
+
+
 }
