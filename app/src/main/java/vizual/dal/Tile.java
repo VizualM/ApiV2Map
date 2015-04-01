@@ -16,10 +16,10 @@ public class Tile {
         this.id = id;
         this.faction = faction;
         this.stucture = stucture;
-        BottomLeft = bottomLeft;
-        BottomRight = bottomRight;
-        TopLeft = topLeft;
-        TopRight = topRight;
+        this.BottomLeft = bottomLeft;
+        this.BottomRight = bottomRight;
+        this.TopLeft = topLeft;
+        this.TopRight = topRight;
     }
 
 

@@ -22,4 +22,12 @@ public class GeoPoint {
     public void setLong(float aLong) {
         Long = aLong;
     }
+
+    public GeoPoint(float _lat, float _lon){
+        this.Lat = _lat;
+        this.Long = _lon;
+    }
+
+    public GeoPoint(){
+    }
 }
