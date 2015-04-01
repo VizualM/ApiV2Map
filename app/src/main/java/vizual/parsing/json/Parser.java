@@ -15,27 +15,12 @@ import vizual.dal.GeoPoint;
  */
 public class Parser {
 
-    public ArrayList<Tile> Parse(GeoPoint topleft, GeoPoint topright,
-                                 GeoPoint bottomleft, GeoPoint bottomright, String queryurl){
+    public ArrayList<Tile> Parse()
+    {
+        ArrayList<Tile> myResult = new ArrayList<Tile>();
+        //ServiceHandler sh = new ServiceHandler();
 
-        final ArrayList<Tile> myResult = new ArrayList<Tile>();
-        EucaryoteService eucaryoteService;
 
-        RestAdapter serviceForumBuilder = new RestAdapter.Builder().setEndpoint("queryurl").build();
-        eucaryoteService = serviceForumBuilder.create(EucaryoteService.class);
-        eucaryoteService.getCategories("1002", new Callback<List<Tile>>() {
-            @Override
-            public void success(List<Tile> t, Response response) {
-                for (int i=0;i < t.size();i++){
-                    myResult.set(i,t.get(i));
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.getResponse().getStatus();
-            }
-        });
 
         return myResult;
     }
