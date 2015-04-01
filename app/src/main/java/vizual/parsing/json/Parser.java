@@ -7,23 +7,25 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import vizual.dal.Tile;
+import vizual.dal.GeoPoint;
 
 /**
  * Created by charl_000 on 18/03/2015.
  */
 public class Parser {
 
-    public ArrayList<Tuile> Parse(double topleft, double topright,
-                                  double bottomleft, double bottomright, String queryurl){
+    public ArrayList<Tile> Parse(GeoPoint topleft, GeoPoint topright,
+                                 GeoPoint bottomleft, GeoPoint bottomright, String queryurl){
 
-        final ArrayList<Tuile> myResult = new ArrayList<Tuile>();
+        final ArrayList<Tile> myResult = new ArrayList<Tile>();
         EucaryoteService eucaryoteService;
 
         RestAdapter serviceForumBuilder = new RestAdapter.Builder().setEndpoint("queryurl").build();
         eucaryoteService = serviceForumBuilder.create(EucaryoteService.class);
-        eucaryoteService.getCategories("1002", new Callback<List<Tuile>>() {
+        eucaryoteService.getCategories("1002", new Callback<List<Tile>>() {
             @Override
-            public void success(List<Tuile> t, Response response) {
+            public void success(List<Tile> t, Response response) {
                 for (int i=0;i < t.size();i++){
                     myResult.set(i,t.get(i));
                 }

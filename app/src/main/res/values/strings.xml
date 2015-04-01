@@ -3,7 +3,7 @@
 
     <string name="app_name">Test api v2</string>
     <string name="title_activity_maps">Eukaryote</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyBArbuWz6nKsvDX8pR7CIW-wIOrWmOsHrM</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCBRlG1GZ4yUKq2KG6j_D8_j73FZ7bO4Io</string>
 
     <string name="gps">GPS</string>
     <string name="gps_enable">Activer</string>
