@@ -28,6 +28,7 @@ import vizual.geolocation.GPSManager;
 import vizual.geolocation.LocationManager;
 import vizual.geolocation.OnGPSEnabledListener;
 import vizual.geolocation.OnLocationListener;
+import vizual.parsing.json.TilesController;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker myMarker;
     private LocationManager mLocationManager;
     private GPSManager mGPSManager;
+    private TilesController tilesController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //parse & download json
-      //  tilesController.init();
+        tilesController.init();
 
     }
 
@@ -96,9 +98,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setIndoorEnabled(true);
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
 
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
 
@@ -116,6 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                 500, null); // Animation de la caméra
+
         PolylineOptions rectOptions = new PolylineOptions()
                 .add(new LatLng(44.855157, -0.567730)) //Start Point
                 .add(new LatLng(44.855286, -0.567544)) // North of the previous point, but at the same longitude
@@ -125,19 +129,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .color(Color.GREEN)
                 .width(5);
         Polyline polyline = mMap.addPolyline(rectOptions);
-//Affichage du premier carré !!
-// --- Mise en place d'un algo de 100 carrés ---
-        double a = 44.855333;
-        double b = -0.567552;
-        double c = 44.855332;
-        double d = -0.567298;
-        double e = 44.855514;
-        double f = -0.567297;
-        double g = 44.855513;
-        double h = -0.567553;
-        double j = 44.855333;
-        double k = -0.567552;
-        for (int i = 0; i < 1; i++) {
+        //Affichage du premier carré !!
+        // --- Mise en place d'un algo de 100 carrés ---
+                double a = 44.855333;
+                double b = -0.567552;
+                double c = 44.855332;
+                double d = -0.567298;
+                double e = 44.855514;
+                double f = -0.567297;
+                double g = 44.855513;
+                double h = -0.567553;
+                double j = 44.855333;
+                double k = -0.567552;
+                for (int i = 0; i < 1; i++) {
             /*PolylineOptions carreOptions = new PolylineOptions()
                     .add(new LatLng(a, b))
                     .add(new LatLng(c, d))
@@ -147,15 +151,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .width(6)
                     .color(Color.rgb(255, 83, 13));*/
 
-            LatLng north = new LatLng(a,b);
-            LatLng south = new LatLng(c,d);
-    LatLngBounds mypoint = new LatLngBounds(north,south);
+            LatLng south = new LatLng(44.855157,  -0.567730);
             double opacity =0.25;
 
             GroundOverlay groundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory
                             .fromResource(R.drawable.carte))
-                    .positionFromBounds(mypoint)
+                    .position(south, 20f, 20f)
+                    .anchor(0, 1)
                     .transparency((float) opacity));
 
             groundOverlay.setDimensions(20);
@@ -170,7 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             h = h + (-0.000265);
             j = j + 0.00000;
             k = k + (-0.000265);
-//Ajout de 20 metre supplémentaire
+            //Ajout de 20 metre supplémentaire
 
         }
     }
@@ -197,9 +200,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 */
-
-
-
-
-
 }
