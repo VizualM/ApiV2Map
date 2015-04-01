@@ -1,4 +1,4 @@
-package vizual.testapiv2;
+package vizual.activity;
 
 import android.graphics.Color;
 import android.location.Location;
@@ -76,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //parse & download json
-        tilesController.init();
+      //  tilesController.init();
 
     }
 
@@ -109,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
-                .zoom(100)
+                .zoom(19)
                 .bearing(0)
                 .build();
 
@@ -137,8 +137,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double h = -0.567553;
         double j = 44.855333;
         double k = -0.567552;
-        for (int i = 0; i < 100; i++) {
-            PolylineOptions carreOptions = new PolylineOptions()
+        for (int i = 0; i < 1; i++) {
+            /*PolylineOptions carreOptions = new PolylineOptions()
                     .add(new LatLng(a, b))
                     .add(new LatLng(c, d))
                     .add(new LatLng(e, f))
@@ -147,6 +147,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .width(6)
                     .color(Color.rgb(255, 83, 13));*/
 
+            LatLng north = new LatLng(a,b);
+            LatLng south = new LatLng(c,d);
+    LatLngBounds mypoint = new LatLngBounds(north,south);
+            double opacity =0.25;
 
             GroundOverlay groundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory
@@ -170,7 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     }
-        @Override
+        /*
         public boolean onMarkerClick(final Marker marker) {
 
             if (marker.equals(myMarker)) {
@@ -183,7 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //GoogleMap.OnMapClickListener(44.855157, -0.567730);
         //Création d'un marker clickable
- /*       mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng mapCenter) {
