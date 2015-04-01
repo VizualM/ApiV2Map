@@ -18,6 +18,7 @@ import vizual.geolocation.GPSManager;
 import vizual.geolocation.LocationManager;
 import vizual.geolocation.OnGPSEnabledListener;
 import vizual.geolocation.OnLocationListener;
+import vizual.parsing.json.TilesController;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -28,6 +29,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private LocationManager mLocationManager;
     private GPSManager mGPSManager;
+    private TilesController tilesController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //On arrive ici lorsque le GPS est déjà activé
             mLocationManager.launchGeolocation();
         }
+
+        //parse & download json
+        tilesController.init();
 
     }
 
