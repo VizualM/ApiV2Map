@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Testapiv22.iml" filepath="$PROJECT_DIR$/Testapiv22.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ApiV2Map.iml" filepath="$PROJECT_DIR$/ApiV2Map.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

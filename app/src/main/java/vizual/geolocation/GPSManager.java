@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 
-import vizual.testapiv2.R;
+import vizual.activity.R;
 
 public class GPSManager {
 
