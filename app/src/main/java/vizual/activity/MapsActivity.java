@@ -200,4 +200,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 */
+final void getJson(){
+
+
+}
 }

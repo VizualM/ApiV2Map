@@ -2,6 +2,11 @@ package vizual.parsing.json;
 
 import android.os.Environment;
 
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,10 +17,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.map.ObjectMapper;
-import com.google.gson.JsonParseException;
-import org.codehaus.jackson.JsonParser;
 import vizual.dal.Tile;
 import vizual.dal.GeoPoint;
 
@@ -24,8 +25,14 @@ import vizual.dal.GeoPoint;
  */
 public class TilesController {
 
-        public void Parse (String myRequest){}
-        private static final String DL_URL = "http://127.0.0.1/Eukaryote/web/app_dev.php/tiles?topLon=-0.66993999999999&topLat=44.70081&botLon=-0.72636&botLat=44.70009";
+        public void Parse (String myRequest, String topLon, String topLat, String botLon, String botLat){}
+        private static String ipAdress = "10.33.3.72";
+        private static String topLon="-0.66993999999999";
+        private static String topLat="44.70081";
+        private static String botLon="-0.72636";
+        private static String botLat="44.70009";
+        private static String DL_URL = "http://"+ipAdress+"/Eukaryote/web/app_dev.php/tiles?topLon="+topLon+"&topLat="+topLat+
+                "&botLon="+botLon+"botLat="+botLat;
 
         private ObjectMapper objectMapper = null;
         private JsonFactory jsonFactory = null;
