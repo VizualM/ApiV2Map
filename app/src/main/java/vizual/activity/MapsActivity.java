@@ -176,6 +176,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Ajout de 20 metre supplémentaire
 
         }
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng point) {
+                Log.d("Map", "Map clicked");
+                drawMarker(a, b);
+            }
+        });
     }
         /*
         public boolean onMarkerClick(final Marker marker) {
