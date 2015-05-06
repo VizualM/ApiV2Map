@@ -5,4 +5,21 @@ package vizual.dal;
  */
 public class Faction {
 
+    public String getFaction() {
+        return faction;
+    }
+
+    public void setFaction(String faction) {
+        this.faction = faction;
+    }
+
+    private String faction;
+
+   public Faction(String factionS){
+       this.faction = factionS;
+   }
+
+    public Faction(){
+    }
+
 }
