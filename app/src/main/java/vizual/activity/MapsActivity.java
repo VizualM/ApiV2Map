@@ -1,28 +1,35 @@
 package vizual.activity;
 
-import android.graphics.Color;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+        import android.content.Intent;
+        import android.graphics.Color;
+        import android.location.Location;
+        import android.os.Bundle;
+        import android.support.v4.app.FragmentActivity;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.GroundOverlay;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
+        import com.google.android.gms.maps.CameraUpdateFactory;
+        import com.google.android.gms.maps.GoogleMap;
+        import com.google.android.gms.maps.MapFragment;
+        import com.google.android.gms.maps.OnMapReadyCallback;
+        import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+        import com.google.android.gms.maps.model.CameraPosition;
+        import com.google.android.gms.maps.model.GroundOverlay;
+        import com.google.android.gms.maps.model.GroundOverlayOptions;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.Marker;
+        import com.google.android.gms.maps.model.MarkerOptions;
+        import com.google.android.gms.maps.model.Polyline;
+        import com.google.android.gms.maps.model.PolylineOptions;
 
-import vizual.geolocation.GPSManager;
-import vizual.geolocation.LocationManager;
-import vizual.geolocation.OnGPSEnabledListener;
-import vizual.geolocation.OnLocationListener;
-import vizual.parsing.json.TilesController;
+        import java.util.List;
+
+        import vizual.dal.Tile;
+        import vizual.geolocation.GPSManager;
+        import vizual.geolocation.LocationManager;
+        import vizual.geolocation.OnGPSEnabledListener;
+        import vizual.geolocation.OnLocationListener;
+        import vizual.parsing.json.TilesController;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -34,6 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationManager mLocationManager;
     private GPSManager mGPSManager;
     private TilesController tilesController;
+    TextView tvLocInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +105,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
 
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
 
-        //mMap.addMarker(new MarkerOptions()
-          //      .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-          //      .position(mapCenter)
-          //      .flat(false));
+        final LatLng south = new LatLng(mapCenter.latitude, mapCenter.longitude);
+
+        mMap.addMarker(new MarkerOptions()
+             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+             .position(south)
+             .rotation(0)
+             .flat(false));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
@@ -125,17 +136,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Polyline polyline = mMap.addPolyline(rectOptions);
         //Affichage du premier carré !!
         // --- Mise en place d'un algo de 100 carrés ---
-                double a = 44.855333;
-                double b = -0.567552;
-                double c = 44.855332;
-                double d = -0.567298;
-                double e = 44.855514;
-                double f = -0.567297;
-                double g = 44.855513;
-                double h = -0.567553;
-                double j = 44.855333;
-                double k = -0.567552;
-                for (int i = 0; i < 1; i++) {
+        double a = 44.855333;
+        double b = -0.567552;
+        double c = 44.855332;
+        double d = -0.567298;
+        double e = 44.855514;
+        double f = -0.567297;
+        double g = 44.855513;
+        double h = -0.567553;
+        double j = 44.855333;
+        double k = -0.567552;
+        for (int i = 0; i < 1; i++) {
             /*PolylineOptions carreOptions = new PolylineOptions()
                     .add(new LatLng(a, b))
                     .add(new LatLng(c, d))
@@ -145,8 +156,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .width(6)
                     .color(Color.rgb(255, 83, 13));*/
 
-            LatLng south = new LatLng(44.855157,  -0.567730);
-            double opacity =0.25;
+
+            double opacity = 0.25;
 
             GroundOverlay groundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory
@@ -169,15 +180,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             k = k + (-0.000265);
             //Ajout de 20 metre supplémentaire
 
-        }
-        // mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
-        //    @Override
-        //    public void onMapClick(LatLng point) {
-        //        Log.d("Map", "Map clicked");
-        //        drawMarker(a, b);
-        //    }
-        // });
+
+        }
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+
+                TextView  UpdatePosition = (TextView)findViewById(R.id.UpdatePosition);
+                UpdatePosition.setText( "Latitude : " + latLng.latitude + "Longitude : " + latLng.longitude);
+            }
+
+
+            public void onMapClick(LatLng south, List<Tile> myTiles) {
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(south));
+
+                int i = 0;
+                while(true) {
+                    if (south.latitude < myTiles.get(i).getBottomLeft().getLat() && south.longitude < myTiles.get(i).getBottomRight().getLong()) {
+
+                            Tile myTile = myTiles.get(i);
+
+                        }
+                        else {i++;}
+                    }
+                }
+
+        });
+
     }
         /*
         public boolean onMarkerClick(final Marker marker) {
@@ -202,8 +236,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 */
-final void getJson(){
 
-
-}
 }

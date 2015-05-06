@@ -1,5 +1,30 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/mMap" tools:context=".MapsActivity"
-    android:name="com.google.android.gms.maps.MapFragment"
-    tools:layout="@layout/activity_maps" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <FrameLayout
+        android:id="@+id/FlashBarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="72dp">
+    <!-- The main content -->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/mMap" tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.MapFragment"
+        tools:layout="@layout/activity_maps" />
+    <!-- "Loaded" flash bar layout -->
+
+        <!-- flash bar content -->
+    </FrameLayout>
+    <!-- Last loaded time layout -->
+    <TextView
+        android:id="@+id/UpdatePosition"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="440dp"
+        android:layout_marginRight="200dp"
+        />
+</FrameLayout>
