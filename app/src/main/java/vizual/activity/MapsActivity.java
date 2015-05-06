@@ -1,6 +1,5 @@
 package vizual.activity;
 
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,9 +14,11 @@ import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
+
+import vizual.dal.GeoPoint;
+import vizual.dal.Tile;
 import vizual.geolocation.GPSManager;
 import vizual.geolocation.LocationManager;
 import vizual.geolocation.OnGPSEnabledListener;
@@ -34,6 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationManager mLocationManager;
     private GPSManager mGPSManager;
     private TilesController tilesController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +72,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //On arrive ici lorsque le GPS est déjà activé
             mLocationManager.launchGeolocation();
         }
-
-        //parse & download json
-        tilesController.Parse(null, null, null, null, null);
-
     }
 
     @Override
@@ -114,6 +112,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                 500, null); // Animation de la caméra
 
+        //parse & download json
+        ArrayList<Tile> TilesOnScreen = tilesController.Parse("127.0.0.1", "-0.590987", "44.857947", "-0.565238", "44.846233");
+
+        for(int i = 0; i < TilesOnScreen.size(); i++){
+
+            double opacity =0.25;
+            Tile j = TilesOnScreen.get(i);
+            final LatLng jLatLong = new LatLng(j.BottomLeft.getLat(), j.BottomLeft.getLong());
+
+
+            GroundOverlay groundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
+                    .image(BitmapDescriptorFactory
+                            .fromResource(R.drawable.carte))
+                    .position(jLatLong, 20f, 20f)
+                    .anchor(0, 1)
+                    .transparency((float) opacity));
+
+            groundOverlay.setDimensions(20);
+        }
+        /*//Affichage du premier carré !!
         PolylineOptions rectOptions = new PolylineOptions()
                 .add(new LatLng(44.855157, -0.567730)) //Start Point
                 .add(new LatLng(44.855286, -0.567544)) // North of the previous point, but at the same longitude
@@ -122,73 +140,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .add(new LatLng(44.855157, -0.567730)) // Closes the polyline.
                 .color(Color.GREEN)
                 .width(5);
-        Polyline polyline = mMap.addPolyline(rectOptions);
-        //Affichage du premier carré !!
-        // --- Mise en place d'un algo de 100 carrés ---
-                double a = 44.855333;
-                double b = -0.567552;
-                double c = 44.855332;
-                double d = -0.567298;
-                double e = 44.855514;
-                double f = -0.567297;
-                double g = 44.855513;
-                double h = -0.567553;
-                double j = 44.855333;
-                double k = -0.567552;
-                for (int i = 0; i < 1; i++) {
-            /*PolylineOptions carreOptions = new PolylineOptions()
-                    .add(new LatLng(a, b))
-                    .add(new LatLng(c, d))
-                    .add(new LatLng(e, f))
-                    .add(new LatLng(g, h))
-                    .add(new LatLng(j, k))
-                    .width(6)
-                    .color(Color.rgb(255, 83, 13));*/
-
-            LatLng south = new LatLng(44.855157,  -0.567730);
-            double opacity =0.25;
-
-            GroundOverlay groundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
-                    .image(BitmapDescriptorFactory
-                            .fromResource(R.drawable.carte))
-                    .position(south, 20f, 20f)
-                    .anchor(0, 1)
-                    .transparency((float) opacity));
-
-            groundOverlay.setDimensions(20);
-
-
-            b = b + (-0.000265);
-            c = c + 0.00000;
-            d = d + (-0.000265);
-            e = e + 0.00000;
-            f = f + (-0.000265);
-            g = g + 0.00000;
-            h = h + (-0.000265);
-            j = j + 0.00000;
-            k = k + (-0.000265);
-            //Ajout de 20 metre supplémentaire
+        Polyline polyline = mMap.addPolyline(rectOptions);*/
 
         }
-        // mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
-        //    @Override
-        //    public void onMapClick(LatLng point) {
-        //        Log.d("Map", "Map clicked");
-        //        drawMarker(a, b);
-        //    }
-        // });
     }
         /*
-        public boolean onMarkerClick(final Marker marker) {
 
-            if (marker.equals(myMarker)) {
-                //handle click here
-                myMarker.getTitle().equals("poto");
-            }
-            return true;
-
-        }
 
         //GoogleMap.OnMapClickListener(44.855157, -0.567730);
         //Création d'un marker clickable
@@ -201,9 +159,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 drawMarker(point);
             }
         });
-*/
-final void getJson(){
+        */
 
 
-}
-}

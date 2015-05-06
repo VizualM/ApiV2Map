@@ -10,7 +10,7 @@ import vizual.dal.Tile;
  */
 public class TilesController {
 
-        public ArrayList<Tile> Parse (String myRequest, String topLon, String topLat, String botLon, String botLat){
+        public static ArrayList<Tile> Parse (String myurl, String topLon, String topLat, String botLon, String botLat){
             JSONParser parser = new JSONParser();
             ArrayList<Tile> myTiles = parser.getEvents(topLon, topLat, botLon, botLat);
             return myTiles;
