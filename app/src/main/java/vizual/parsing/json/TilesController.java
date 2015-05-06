@@ -1,11 +1,7 @@
 package vizual.parsing.json;
 
-import android.os.Environment;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 
 import vizual.dal.Tile;
 

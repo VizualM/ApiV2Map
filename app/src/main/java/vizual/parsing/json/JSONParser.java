@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Struct;
 import java.util.ArrayList;
 
 import vizual.dal.Faction;
