@@ -1,5 +1,7 @@
 package vizual.parsing.json;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 
 
@@ -10,10 +12,24 @@ import vizual.dal.Tile;
  */
 public class TilesController {
 
-        public static ArrayList<Tile> Parse (String myurl, String topLon, String topLat, String botLon, String botLat){
-            JSONParser parser = new JSONParser();
-            ArrayList<Tile> myTiles = parser.getEvents(topLon, topLat, botLon, botLat);
-            return myTiles;
+        public ArrayList<Tile> Parse (String topLon, String topLat, String botLon, String botLat){
+            myAsyncSyncClass myTask = new myAsyncSyncClass();
+            try {
+                return myTask.execute(topLon, topLat, botLon, botLat).get();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        private class myAsyncSyncClass extends AsyncTask<String, Void, ArrayList<Tile>> {
+
+            @Override
+            protected ArrayList<Tile> doInBackground(String... Strings) {
+                JSONParser parser = new JSONParser();
+                return parser.getEvents(Strings[0], Strings[1], Strings[2], Strings[3]);
+            }
         }
 
 

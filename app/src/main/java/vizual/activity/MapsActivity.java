@@ -5,8 +5,6 @@ package vizual.activity;
         import android.os.Bundle;
         import android.support.v4.app.FragmentActivity;
         import android.widget.TextView;
-
-
         import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
         import com.google.android.gms.maps.MapFragment;
@@ -16,11 +14,8 @@ package vizual.activity;
         import com.google.android.gms.maps.model.GroundOverlay;
         import com.google.android.gms.maps.model.GroundOverlayOptions;
         import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.Marker;
-
         import java.util.ArrayList;
         import java.util.List;
-
         import vizual.dal.Tile;
         import vizual.geolocation.GPSManager;
         import vizual.geolocation.LocationManager;
@@ -36,7 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location mUserLocation;
     private LocationManager mLocationManager;
     private GPSManager mGPSManager;
-    private TilesController tilesController;
+    private TilesController tilesController = new TilesController();
     TextView tvLocInfo;
 
     @Override
@@ -112,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 500, null); // Animation de la caméra
 
         //parse & download json
-        ArrayList<Tile> TilesOnScreen = tilesController.Parse("127.0.0.1", "-0.590987", "44.857947", "-0.565238", "44.846233");
+        ArrayList<Tile> TilesOnScreen = tilesController.Parse("-0.590987", "44.859524", "-0.72636", "44.854291");
 
         for (int i = 0; i < TilesOnScreen.size(); i++) {
 
@@ -135,8 +130,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapClick(LatLng latLng) {
-
-
                 TextView UpdatePosition = (TextView) findViewById(R.id.UpdatePosition);
                 UpdatePosition.setText("Latitude : " + latLng.latitude + "Longitude : " + latLng.longitude);
             }

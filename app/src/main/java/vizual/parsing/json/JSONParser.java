@@ -52,12 +52,14 @@ public class JSONParser {
 
     public static ArrayList<Tile> getEvents(String topLon, String topLat, String botLon, String botLat) {
         try {
-            String myurl = "http://127.0.0.1/Eukaryote/web/app_dev.php/tiles?topLon="+topLon+"&topLat="+topLat+"&botLon="+botLon+"botLat="+botLat;
+            // String myurl = "http://10.33.3.72/Eukaryote/web/app_dev.php/tiles?topLon="+topLon+"&topLat="+topLat+"&botLon="+botLon+"botLat="+botLat;
+            String myurl = "http://10.33.3.72/Eukaryote/web/app_dev.php/tiles?topLon=-0.565066&topLat=44.859524&botLon=-0.72636&botLat=44.854291";
             Log.e("URL", myurl);
             ArrayList<Tile> TileArray = new ArrayList<Tile>();
             URL url = new URL(myurl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
+
             InputStream inputStream = connection.getInputStream();
             String result = JSONParser.InputStreamToString(inputStream);
 

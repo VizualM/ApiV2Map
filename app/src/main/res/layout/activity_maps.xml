@@ -16,7 +16,7 @@
         tools:layout="@layout/activity_maps" />
     <!-- "Loaded" flash bar layout -->
 
-        <!-- flash bar content -->
+    <!-- flash bar content -->
     </FrameLayout>
     <!-- Last loaded time layout -->
     <TextView
